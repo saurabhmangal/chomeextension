@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<!-- Generated using GitHub Copilot (Claude Haiku 4.5) -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="GitHub Copilot - Claude Haiku 4.5">
+    <title>Saurabh's Truck - Fresh Food, Fast Delivery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #FF6B6B;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #FF6B6B;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #FF6B6B;
+            margin: 1rem 0;
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #FF6B6B;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .menu-item h4 {
+            color: #FF6B6B;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #FF8E53;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .contact-section {
+            background: #f9f9f9;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .contact-box h4 {
+            color: #FF6B6B;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header>
+        <nav>
+            <a href="#" class="logo">🚚 Saurabh's Truck</a>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Fresh Food. Fast Delivery.</h1>
+            <p>Taste the difference with our handpicked ingredients and lightning-fast service</p>
+            <a href="#menu" class="cta-button">Order Now</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="about">
+        <div class="container">
+            <h2>Why Choose Us?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="icon">⚡</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Get your food in 15-20 minutes. We prioritize speed without compromising quality.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🎯</div>
+                    <h3>Fresh Quality</h3>
+                    <p>All ingredients are fresh and sourced locally for the best taste experience.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💰</div>
+                    <h3>Affordable Prices</h3>
+                    <p>Delicious food at competitive prices that won't break the bank.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">👨‍🍳</div>
+                    <h3>Expert Chefs</h3>
+                    <p>Prepared by experienced chefs with passion for authentic flavors.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🛵</div>
+                    <h3>Easy Ordering</h3>
+                    <p>Order online or call us. Delivery available to your location.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">😋</div>
+                    <h3>Variety</h3>
+                    <p>Wide range of cuisines to satisfy every craving and dietary preference.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h4>Classic Burger Combo</h4>
+                    <p>Juicy burger with fries and a drink</p>
+                    <div class="price">$9.99</div>
+                </div>
+                <div class="menu-item">
+                    <h4>Spicy Chicken Wrap</h4>
+                    <p>Grilled chicken with fresh vegetables</p>
+                    <div class="price">$8.99</div>
+                </div>
+                <div class="menu-item">
+                    <h4>Veggie Delight Bowl</h4>
+                    <p>Fresh vegetables with quinoa</p>
+                    <div class="price">$7.99</div>
+                </div>
+                <div class="menu-item">
+                    <h4>Fish Tacos (3pcs)</h4>
+                    <p>Crispy fish with cabbage slaw</p>
+                    <div class="price">$10.99</div>
+                </div>
+                <div class="menu-item">
+                    <h4>Mac & Cheese Deluxe</h4>
+                    <p>Creamy three-cheese blend</p>
+                    <div class="price">$8.49</div>
+                </div>
+                <div class="menu-item">
+                    <h4>Combo Platter</h4>
+                    <p>Mix of our best sellers</p>
+                    <div class="price">$14.99</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-info">
+                <div class="contact-box">
+                    <h4>📍 Location</h4>
+                    <p>Downtown Plaza<br>Main Street, City</p>
+                </div>
+                <div class="contact-box">
+                    <h4>☎️ Phone</h4>
+                    <p>(555) 123-4567</p>
+                </div>
+                <div class="contact-box">
+                    <h4>⏰ Hours</h4>
+                    <p>Mon-Fri: 11am - 11pm<br>Sat-Sun: 12pm - 12am</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Saurabh's Truck. All rights reserved.</p>
+            <p>Follow us on Social Media for daily specials and updates!</p>
+        </div>
+    </footer>
+</body>
+</html>
