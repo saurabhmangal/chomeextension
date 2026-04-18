@@ -130,7 +130,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     refreshBtn.addEventListener('click', analyze);
-    
+
+    // Settings: load saved key
+    const apiKeyInput = document.getElementById('api-key-input');
+    const apiKeyStatus = document.getElementById('api-key-status');
+    chrome.storage.local.get("GEMINI_API_KEY", ({ GEMINI_API_KEY }) => {
+        if (GEMINI_API_KEY) {
+            apiKeyInput.value = GEMINI_API_KEY;
+            apiKeyStatus.textContent = "API key is set.";
+        }
+    });
+
+    document.getElementById('save-api-key').addEventListener('click', () => {
+        const key = apiKeyInput.value.trim();
+        if (!key) {
+            apiKeyStatus.textContent = "Please enter a valid API key.";
+            return;
+        }
+        chrome.storage.local.set({ GEMINI_API_KEY: key }, () => {
+            apiKeyStatus.textContent = "API key saved successfully.";
+        });
+    });
+
+    document.getElementById('clear-api-key').addEventListener('click', () => {
+        chrome.storage.local.remove("GEMINI_API_KEY", () => {
+            apiKeyInput.value = "";
+            apiKeyStatus.textContent = "API key cleared.";
+        });
+    });
+
     // Initial analysis
     analyze();
 });

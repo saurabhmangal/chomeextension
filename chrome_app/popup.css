@@ -338,3 +338,65 @@ footer p {
     box-shadow: 0 8px 20px var(--primary-glow);
     transform: translateY(-2px);
 }
+
+/* Settings Tab */
+.settings-hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+}
+
+.settings-input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 12px;
+    box-sizing: border-box;
+    outline: none;
+    transition: var(--transition);
+}
+
+.settings-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+.settings-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.settings-save {
+    flex: 1;
+    margin-bottom: 0;
+    padding: 0.7rem;
+}
+
+.btn-danger {
+    flex: 0 0 auto;
+    padding: 0.7rem 1rem;
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.3);
+    transform: translateY(-2px);
+}
+
+.settings-status {
+    font-size: 11px;
+    margin-top: 8px;
+    color: var(--text-dim);
+    min-height: 16px;
+}

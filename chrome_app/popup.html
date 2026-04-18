@@ -17,6 +17,7 @@
             <div class="tabs">
                 <button class="tab-btn active" data-tab="summary">Insights</button>
                 <button class="tab-btn" data-tab="wallpapers">Wallpapers</button>
+                <button class="tab-btn" data-tab="settings">⚙</button>
             </div>
         </header>
 
@@ -60,6 +61,22 @@
                 </div>
             </section>
         </main>
+
+            <!-- Settings Tab -->
+            <section id="settings-tab" class="tab-content">
+                <div class="summary-area">
+                    <h3>Gemini API Key</h3>
+                    <p class="settings-hint">
+                        Your key is stored locally in the extension and never sent anywhere except the Gemini API.
+                    </p>
+                    <input type="password" id="api-key-input" class="settings-input" placeholder="Paste your Gemini API key here...">
+                    <div class="settings-actions">
+                        <button type="button" id="save-api-key" class="btn-primary settings-save">Save Key</button>
+                        <button type="button" id="clear-api-key" class="btn-danger">Clear</button>
+                    </div>
+                    <p id="api-key-status" class="settings-status"></p>
+                </div>
+            </section>
 
         <!-- Footer -->
         <footer>

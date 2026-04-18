@@ -1,9 +1,27 @@
 import json
+import os
 import urllib.request
 import urllib.error
+from pathlib import Path
 
-# Config matching the extension
-GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
+
+def load_env() -> dict:
+    env_path = Path(__file__).resolve().parent / ".env"
+    env = {}
+    if not env_path.exists():
+        return env
+    with env_path.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            env[key.strip()] = value.strip().strip('"').strip("'")
+    return env
+
+
+_env = load_env()
+GEMINI_API_KEY = _env.get("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY", "")
 MODEL_NAME = "gemini-2.5-flash"
 API_URL = f"https://generativelanguage.googleapis.com/v1/models/{MODEL_NAME}:generateContent?key={GEMINI_API_KEY}"
 

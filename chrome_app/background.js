@@ -1,17 +1,21 @@
-const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
 const MODEL_NAME = "gemini-2.5-flash";
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "summarizeWithGemini") {
-        summarizeContent(request.text)
-            .then(summary => sendResponse({ summary }))
-            .catch(error => sendResponse({ error: error.message }));
-        return true; // Keep channel open for async response
+        chrome.storage.local.get("GEMINI_API_KEY", ({ GEMINI_API_KEY }) => {
+            if (!GEMINI_API_KEY) {
+                sendResponse({ error: "API key not set. Open extension settings to add your Gemini API key." });
+                return;
+            }
+            summarizeContent(request.text, GEMINI_API_KEY)
+                .then(summary => sendResponse({ summary }))
+                .catch(error => sendResponse({ error: error.message }));
+        });
+        return true;
     }
 });
 
-async function summarizeContent(text) {
-    // Use v1 instead of v1beta for better stability
+async function summarizeContent(text, GEMINI_API_KEY) {
     const url = `https://generativelanguage.googleapis.com/v1/models/${MODEL_NAME}:generateContent?key=${GEMINI_API_KEY}`;
     
     console.log("Calling Gemini API with model:", MODEL_NAME);
