@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Insight</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo-area">
+                <span class="icon">✨</span>
+                <h1>Nexus</h1>
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="summary">Insights</button>
+                <button class="tab-btn" data-tab="wallpapers">Wallpapers</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Summary Tab -->
+            <section id="summary-tab" class="tab-content active">
+                <div class="status-card">
+                    <p id="page-title">Detecting page...</p>
+                    <span id="image-count" class="badge">0 Images Found</span>
+                </div>
+                
+                <div class="summary-area">
+                    <h3>Page Summary</h3>
+                    <div id="summary-text" class="content-placeholder">
+                        Analyzing content to generate key insights...
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <button id="refresh-summary" class="btn-primary">Refresh Analysis</button>
+                </div>
+
+                <!-- Status Log for Debugging -->
+                <div class="debug-area">
+                    <h4>System Diagnostics</h4>
+                    <ul id="status-log">
+                        <li>Waiting for interaction...</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Wallpapers Tab -->
+            <section id="wallpapers-tab" class="tab-content">
+                <div class="info-banner">
+                    <p>Found <span id="high-res-count">0</span> wallpaper-eligible images (HD+)</p>
+                </div>
+                <div id="wallpaper-gallery" class="gallery">
+                    <!-- Images will be injected here -->
+                    <div class="empty-state">No high-res images detected.</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Nexus v1.0 • Premium Insights</p>
+        </footer>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

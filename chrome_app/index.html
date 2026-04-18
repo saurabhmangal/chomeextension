@@ -1,276 +1,69 @@
 <!DOCTYPE html>
-<!-- Generated using GitHub Copilot (Claude Haiku 4.5) -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="GitHub Copilot - Claude Haiku 4.5">
-    <title>Saurabh's Truck - Fresh Food, Fast Delivery</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        header {
-            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        nav a:hover {
-            opacity: 0.8;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
-            color: white;
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #FF6B6B;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 4rem 0;
-        }
-
-        section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #FF6B6B;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-card h3 {
-            color: #FF6B6B;
-            margin: 1rem 0;
-        }
-
-        .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .menu-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #FF6B6B;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .menu-item h4 {
-            color: #FF6B6B;
-            margin-bottom: 0.5rem;
-        }
-
-        .price {
-            font-weight: bold;
-            color: #FF8E53;
-            font-size: 1.2rem;
-        }
-
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-        }
-
-        .contact-section {
-            background: #f9f9f9;
-        }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .contact-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .contact-box h4 {
-            color: #FF6B6B;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            section h2 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+    <meta name="description" content="Saurabh's Truck - Gourmet Food delivered to your doorstep. Experience the best burgers, tacos, and healthy bowls in town.">
+    <title>Saurabh's Truck | Gourmet Food Delivery</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <!-- Header/Navigation -->
-    <header>
-        <nav>
-            <a href="#" class="logo">🚚 Saurabh's Truck</a>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">🚚 Saurabh's Truck</a>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Experience</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#menu" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.9rem;">Order Now</a>
+            </nav>
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="container">
-            <h1>Fresh Food. Fast Delivery.</h1>
-            <p>Taste the difference with our handpicked ingredients and lightning-fast service</p>
-            <a href="#menu" class="cta-button">Order Now</a>
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="hero-content">
+                <h1 class="reveal">Gourmet Food.<br>Delivered Fast.</h1>
+                <p class="reveal" style="transition-delay: 0.2s;">Savor the world-class flavors of Saurabh's Truck, brought directly to your doorstep in under 30 minutes.</p>
+                <div class="reveal" style="transition-delay: 0.4s; display: flex; gap: 1rem;">
+                    <a href="#menu" class="btn btn-primary">Browse Menu</a>
+                    <a href="#about" class="btn" style="border: 1px solid var(--glass-border); color: #fff;">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image reveal" style="transition-delay: 0.6s;">
+                <img src="assets/hero.png" alt="Gourmet Food Truck">
+            </div>
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- About / Features -->
     <section id="about">
         <div class="container">
-            <h2>Why Choose Us?</h2>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="icon">⚡</div>
-                    <h3>Fast Delivery</h3>
-                    <p>Get your food in 15-20 minutes. We prioritize speed without compromising quality.</p>
+            <div class="section-title reveal">
+                <h2>The Experience</h2>
+                <p>We don't just deliver food; we deliver a premium culinary experience crafted by expert chefs.</p>
+            </div>
+            <div class="grid">
+                <div class="card reveal">
+                    <span class="card-icon">⚡</span>
+                    <h3>Lightning Fast</h3>
+                    <p>Our proprietary routing ensures your meal arrives fresh and hot in 20 minutes or less.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="icon">🎯</div>
-                    <h3>Fresh Quality</h3>
-                    <p>All ingredients are fresh and sourced locally for the best taste experience.</p>
+                <div class="card reveal" style="transition-delay: 0.2s;">
+                    <span class="card-icon">💎</span>
+                    <h3>Premium Quality</h3>
+                    <p>Only the finest wagyu beef, organic greens, and artisanal breads make it to our kitchen.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="icon">💰</div>
-                    <h3>Affordable Prices</h3>
-                    <p>Delicious food at competitive prices that won't break the bank.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">👨‍🍳</div>
-                    <h3>Expert Chefs</h3>
-                    <p>Prepared by experienced chefs with passion for authentic flavors.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">🛵</div>
-                    <h3>Easy Ordering</h3>
-                    <p>Order online or call us. Delivery available to your location.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">😋</div>
-                    <h3>Variety</h3>
-                    <p>Wide range of cuisines to satisfy every craving and dietary preference.</p>
+                <div class="card reveal" style="transition-delay: 0.4s;">
+                    <span class="card-icon">👨‍🍳</span>
+                    <h3>Chef Crafted</h3>
+                    <p>Every recipe is designed by Michelin-starred talent with a passion for street food.</p>
                 </div>
             </div>
         </div>
@@ -279,57 +72,69 @@
     <!-- Menu Section -->
     <section id="menu">
         <div class="container">
-            <h2>Our Menu</h2>
+            <div class="section-title reveal">
+                <h2>Our Curated Menu</h2>
+                <p>Discover our selection of premium dishes, made to order with fresh ingredients.</p>
+            </div>
             <div class="menu-grid">
-                <div class="menu-item">
-                    <h4>Classic Burger Combo</h4>
-                    <p>Juicy burger with fries and a drink</p>
-                    <div class="price">$9.99</div>
+                <!-- Burger -->
+                <div class="menu-item reveal">
+                    <img src="assets/burger.png" alt="Gourmet Burger">
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Signature Wagyu Burger</h3>
+                            <span class="menu-price">$16.99</span>
+                        </div>
+                        <p>Aged cheddar, caramelized onions, and truffle aioli on a toasted brioche bun.</p>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Signature Wagyu Burger')">Add to Order</button>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <h4>Spicy Chicken Wrap</h4>
-                    <p>Grilled chicken with fresh vegetables</p>
-                    <div class="price">$8.99</div>
+                <!-- Bowl -->
+                <div class="menu-item reveal" style="transition-delay: 0.2s;">
+                    <img src="assets/bowl.png" alt="Healthy Bowl">
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Zen Harvest Bowl</h3>
+                            <span class="menu-price">$14.50</span>
+                        </div>
+                        <p>Quinoa, roasted sweet potatoes, avocado, and tahini-maple dressing.</p>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Zen Harvest Bowl')">Add to Order</button>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <h4>Veggie Delight Bowl</h4>
-                    <p>Fresh vegetables with quinoa</p>
-                    <div class="price">$7.99</div>
-                </div>
-                <div class="menu-item">
-                    <h4>Fish Tacos (3pcs)</h4>
-                    <p>Crispy fish with cabbage slaw</p>
-                    <div class="price">$10.99</div>
-                </div>
-                <div class="menu-item">
-                    <h4>Mac & Cheese Deluxe</h4>
-                    <p>Creamy three-cheese blend</p>
-                    <div class="price">$8.49</div>
-                </div>
-                <div class="menu-item">
-                    <h4>Combo Platter</h4>
-                    <p>Mix of our best sellers</p>
-                    <div class="price">$14.99</div>
+                <!-- Tacos -->
+                <div class="menu-item reveal" style="transition-delay: 0.4s;">
+                    <img src="assets/tacos.png" alt="Shrimp Tacos">
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Artisan Shrimp Tacos</h3>
+                            <span class="menu-price">$13.99</span>
+                        </div>
+                        <p>Grilled shrimp, mango salsa, and pickled onions on hand-pressed tortillas.</p>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Artisan Shrimp Tacos')">Add to Order</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact-section" id="contact">
+    <section id="contact" style="background: linear-gradient(to bottom, transparent, rgba(245, 158, 11, 0.05));">
         <div class="container">
-            <h2>Get In Touch</h2>
-            <div class="contact-info">
-                <div class="contact-box">
-                    <h4>📍 Location</h4>
+            <div class="section-title reveal">
+                <h2>Get In Touch</h2>
+                <p>Have questions or want to book us for an event? We're here to help.</p>
+            </div>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="card reveal" style="text-align: center;">
+                    <h3>📍 Visit Us</h3>
                     <p>Downtown Plaza<br>Main Street, City</p>
                 </div>
-                <div class="contact-box">
-                    <h4>☎️ Phone</h4>
-                    <p>(555) 123-4567</p>
+                <div class="card reveal" style="text-align: center; transition-delay: 0.2s;">
+                    <h3>☎️ Call Us</h3>
+                    <p>(555) 123-4567<br>Support 24/7</p>
                 </div>
-                <div class="contact-box">
-                    <h4>⏰ Hours</h4>
+                <div class="card reveal" style="text-align: center; transition-delay: 0.4s;">
+                    <h3>⏰ Hours</h3>
                     <p>Mon-Fri: 11am - 11pm<br>Sat-Sun: 12pm - 12am</p>
                 </div>
             </div>
@@ -339,9 +144,54 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Saurabh's Truck. All rights reserved.</p>
-            <p>Follow us on Social Media for daily specials and updates!</p>
+            <div class="footer-content">
+                <a href="#" class="logo">🚚 Saurabh's Truck</a>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="#" style="color: var(--text-dim); text-decoration: none;">Instagram</a>
+                    <a href="#" style="color: var(--text-dim); text-decoration: none;">Twitter</a>
+                    <a href="#" style="color: var(--text-dim); text-decoration: none;">Facebook</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Saurabh's Truck. All rights reserved. Designed for excellence.</p>
+            </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Reveal on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+
+        // Header scroll effect
+        window.addEventListener("scroll", () => {
+            const header = document.getElementById("header");
+            if (window.scrollY > 50) {
+                header.style.padding = "0.8rem 0";
+                header.style.background = "rgba(2, 6, 23, 0.95)";
+            } else {
+                header.style.padding = "1.2rem 0";
+                header.style.background = "rgba(2, 6, 23, 0.8)";
+            }
+        });
+
+        // Add to cart simulation
+        function addToCart(itemName) {
+            alert(itemName + " has been added to your order! 🚀");
+        }
+    </script>
 </body>
 </html>
