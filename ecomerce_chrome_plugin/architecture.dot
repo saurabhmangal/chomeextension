@@ -1,16 +1,15 @@
 digraph EcommercePlugin {
 
-  // ── Global settings ────────────────────────────────────────────────────────
+  // ── Global layout ───────────────────────────────────────────────────────────
   graph [
     fontname    = "Arial"
-    fontsize    = 13
+    fontsize    = 12
     bgcolor     = "#F8FAFC"
-    pad         = 1.8
+    pad         = 1.2
     splines     = ortho
     rankdir     = TB
-    nodesep     = 2.0
-    ranksep     = 2.2
-    compound    = true
+    nodesep     = 0.65
+    ranksep     = 1.1
     forcelabels = true
   ]
   node [
@@ -19,50 +18,49 @@ digraph EcommercePlugin {
     style    = "filled,rounded"
     shape    = box
     penwidth = 1.5
-    margin   = "0.35,0.20"
-    width    = 2.8
+    margin   = "0.25,0.15"
+    width    = 2.6
   ]
   edge [
     fontname  = "Arial"
-    fontsize  = 10
-    penwidth  = 1.6
-    arrowsize = 0.85
+    fontsize  = 9
+    penwidth  = 1.5
+    arrowsize = 0.8
     arrowhead = vee
   ]
 
-  // ── LEGEND: single HTML table node — no rank pressure ──────────────────────
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LEGEND  — pinned to the very bottom
+  // ═══════════════════════════════════════════════════════════════════════════
   Legend [
     shape  = none
     margin = "0,0"
-    label  = <<TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10"
+    label  = <<TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9"
                      BGCOLOR="#FFFFFF" COLOR="#7F8C8D">
       <TR>
         <TD COLSPAN="5" BGCOLOR="#2C3E50" ALIGN="CENTER">
-          <FONT POINT-SIZE="12" COLOR="#FFFFFF"><B>&#160;&#160;LEGEND&#160;&#160;</B></FONT>
+          <FONT POINT-SIZE="12" COLOR="#FFFFFF"><B>  LEGEND  </B></FONT>
         </TD>
       </TR>
       <TR>
-        <TD BGCOLOR="#E5E8E8">
-          <FONT POINT-SIZE="10" COLOR="#2C3E50">&#9642; Chrome API / message</FONT>
+        <TD BGCOLOR="#E8E8E8">
+          <FONT POINT-SIZE="9" COLOR="#2C3E50">&#9642;&#160;&#160;Chrome API call</FONT>
         </TD>
-        <TD BGCOLOR="#EAD8F5">
-          <FONT POINT-SIZE="10" COLOR="#4A235A">&#9642; Long-lived Port  (bidirectional)</FONT>
+        <TD BGCOLOR="#D9EAF5">
+          <FONT POINT-SIZE="9" COLOR="#1A5276">&#9642;&#160;&#160;Persistent port<BR/>(streaming progress)</FONT>
         </TD>
         <TD BGCOLOR="#FAD7A0">
-          <FONT POINT-SIZE="10" COLOR="#784212"><B>&#9733; LLM via Tool</B>&#160;(invokeTool dispatcher)</FONT>
+          <FONT POINT-SIZE="9" COLOR="#784212"><B>★&#160;&#160;LLM via Tool Router</B><BR/>(goes through invokeTool)</FONT>
         </TD>
         <TD BGCOLOR="#FADBD8">
-          <FONT POINT-SIZE="10" COLOR="#7B241C"><B>&#9733; Pure LLM Call</B>&#160;(bypasses dispatcher)</FONT>
+          <FONT POINT-SIZE="9" COLOR="#7B241C"><B>★&#160;&#160;Direct LLM call</B><BR/>(bypasses Tool Router)</FONT>
         </TD>
         <TD BGCOLOR="#D5F5E3">
-          <FONT POINT-SIZE="10" COLOR="#145A32">&#9642; Utility&#160;/&#160;No LLM</FONT>
+          <FONT POINT-SIZE="9" COLOR="#145A32">&#9642;&#160;&#160;No AI involved</FONT>
         </TD>
       </TR>
     </TABLE>>
   ]
-
-  // Force Legend to the very top rank, alongside User
-  { rank=source; Legend; User }
 
   // ═══════════════════════════════════════════════════════════════════════════
   // LAYER 0 — USER
@@ -72,96 +70,81 @@ digraph EcommercePlugin {
     shape     = circle
     fillcolor = "#2C3E50"
     fontcolor = "#FFFFFF"
-    fontsize  = 14
+    fontsize  = 13
     width     = 1.1
     height    = 1.1
     penwidth  = 0
   ]
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // LAYER 1 — POPUP  +  CONTENT SCRIPT
+  // LAYER 1 — POPUP  (popup.html renders the UI; popup.js drives everything)
   // ═══════════════════════════════════════════════════════════════════════════
   subgraph cluster_popup {
-    label     = "Popup Layer"
+    label     = "Popup  (popup.html + popup.js)"
     style     = "filled,rounded"
     fillcolor = "#EBF5FB"
     color     = "#2980B9"
     penwidth  = 2.5
     fontname  = "Arial Bold"
-    fontsize  = 13
+    fontsize  = 12
     fontcolor = "#1A5276"
 
-    PopupHTML [
-      label     = "popup.html\nUI Shell"
-      fillcolor = "#AED6F1"
-      fontcolor = "#1A5276"
-      width     = 2.4
-    ]
-    PopupJS [
-      label     = "popup.js\nUI Controller  &  Orchestrator\nCompare btn   |   Summarize btn   |   API Key panel"
+    Popup [
+      label     = "Popup UI & Controller\n━━━━━━━━━━━━━━━━━━━━━━\nScan Tabs button\nCompare & CSV button\nSummarize button\nAPI Key settings panel"
       fillcolor = "#2E86C1"
-      fontcolor = "#FFFFFF"
-      width     = 4.2
-    ]
-  }
-
-  subgraph cluster_content {
-    label     = "Content Layer"
-    style     = "filled,rounded"
-    fillcolor = "#E9F7EF"
-    color     = "#1E8449"
-    penwidth  = 2.5
-    fontname  = "Arial Bold"
-    fontsize  = 13
-    fontcolor = "#145A32"
-
-    ContentJS [
-      label     = "content.js\nPassive Product Detector\n(auto-injected on all pages)"
-      fillcolor = "#27AE60"
       fontcolor = "#FFFFFF"
       width     = 3.0
     ]
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // LAYER 2 — SCAN APIs  +  WEB PAGES
+  // LAYER 2 — SCAN APIs  (used directly by Popup — Background not involved)
   // ═══════════════════════════════════════════════════════════════════════════
   subgraph cluster_scan {
-    label     = "Scan APIs"
+    label     = "Browser APIs  (Scan flow only)"
     style     = "filled,rounded"
     fillcolor = "#F2F3F4"
     color     = "#7F8C8D"
     penwidth  = 1.5
     fontname  = "Arial Bold"
-    fontsize  = 12
+    fontsize  = 11
 
     ChromeTabs [
-      label     = "chrome.tabs\ntabs.query()"
+      label     = "chrome.tabs\nFind all open tabs"
       fillcolor = "#BDC3C7"
       fontcolor = "#2C3E50"
-      width     = 2.4
+      width     = 2.2
     ]
     ChromeScripting [
-      label     = "chrome.scripting\nexecuteScript()"
+      label     = "chrome.scripting\nInject extractor script\ninto each product tab"
       fillcolor = "#BDC3C7"
       fontcolor = "#2C3E50"
-      width     = 2.4
+      width     = 2.5
     ]
   }
 
   WebPages [
-    label     = "Web Pages  /  DOM\nAmazon  ·  eBay  ·  any product site"
+    label     = "Product Page DOM\n(Amazon · eBay · any site)\nScript extracts: name, price,\ncategory, URL — returns to Popup"
     shape     = cylinder
     fillcolor = "#FAE5D3"
     fontcolor = "#784212"
-    penwidth  = 1.5
     color     = "#CA6F1E"
-    style     = "filled"
-    width     = 3.2
+    penwidth  = 1.5
+    style     = filled
+    width     = 3.0
+  ]
+
+  // Content script lives on the page side too
+  ContentJS [
+    label     = "content.js\nPassive product detector\nRuns automatically on every\npage load  (no user action)"
+    fillcolor = "#1E8449"
+    fontcolor = "#FFFFFF"
+    width     = 2.8
   ]
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // BACKGROUND SERVICE WORKER
+  // LAYER 3 — BACKGROUND SERVICE WORKER
+  //   Flat layout — no sub-clusters — avoids edge routing across cluster walls
   // ═══════════════════════════════════════════════════════════════════════════
   subgraph cluster_background {
     label     = "Background Service Worker  (background.js)"
@@ -170,162 +153,108 @@ digraph EcommercePlugin {
     color     = "#6C3483"
     penwidth  = 3.0
     fontname  = "Arial Bold"
-    fontsize  = 14
+    fontsize  = 13
     fontcolor = "#4A235A"
 
-    // ── Runtime Listeners ──────────────────────────────────────────────────
-    subgraph cluster_listeners {
-      label     = "Chrome Runtime Listeners"
-      style     = "filled,rounded"
-      fillcolor = "#EAD8F5"
-      color     = "#9B59B6"
-      penwidth  = 2.0
-      fontname  = "Arial Bold"
-      fontsize  = 12
+    // ── Entry points (Chrome message channels) ────────────────────────────
+    PortListener [
+      label     = "Port Listener\n'compareProgress' channel\nReceives the compare request;\nstreams progress events back"
+      fillcolor = "#D7BDE2"
+      fontcolor = "#4A235A"
+      width     = 3.0
+    ]
 
-      PortListener [
-        label     = "onConnect Listener\nPort: 'compareProgress'"
-        fillcolor = "#D7BDE2"
-        fontcolor = "#4A235A"
-        width     = 3.0
-      ]
-      MsgListener [
-        label     = "onMessage Listener\nsummarizeProducts  ·  productDetected  ·  getDetectedProducts"
-        fillcolor = "#D7BDE2"
-        fontcolor = "#4A235A"
-        width     = 4.4
-      ]
-    }
+    MsgListener [
+      label     = "Message Listener\nHandles: summarizeProducts\nproductDetected\ngetDetectedProducts"
+      fillcolor = "#D7BDE2"
+      fontcolor = "#4A235A"
+      width     = 3.0
+    ]
 
-    // ── invokeTool Dispatcher ──────────────────────────────────────────────
+    // ── Tool Router (invokeTool dispatcher) ──────────────────────────────
     Dispatcher [
-      label     = "invokeTool()\nDispatcher"
+      label     = "Tool Router\n(invokeTool dispatcher)\nLooks up tool by name\nand calls it"
       shape     = diamond
       fillcolor = "#6C3483"
       fontcolor = "#FFFFFF"
       width     = 3.2
       height    = 1.3
       penwidth  = 2.5
-      fontsize  = 12
+      fontsize  = 11
     ]
 
-    // ── Tool Registry ──────────────────────────────────────────────────────
-    subgraph cluster_tools {
-      label     = "Tool Registry"
-      style     = "filled,rounded"
-      fillcolor = "#EAD8F5"
-      color     = "#5B2C6F"
-      penwidth  = 2.0
-      fontname  = "Arial Bold"
-      fontsize  = 12
+    // ── Compare tool chain ────────────────────────────────────────────────
+    ToolOrch [
+      label     = "Compare Products\n(orchestrator)\nLoops over every tab pair;\ncollects results then exports"
+      fillcolor = "#8E44AD"
+      fontcolor = "#FFFFFF"
+      width     = 3.0
+    ]
+
+    ToolPair [
+      label     = "Compare Pair\nStep 1 — keyword match  (no LLM)\nStep 2 — LLM if keywords disagree"
+      fillcolor = "#8E44AD"
+      fontcolor = "#FFFFFF"
+      width     = 3.2
+    ]
+
+    ToolHeuristic [
+      label     = "Category Matcher\nKeyword heuristic  —  no LLM\nFast; runs first for every pair"
+      fillcolor = "#D7BDE2"
       fontcolor = "#4A235A"
+      style     = "filled,dashed,rounded"
+      penwidth  = 1.0
+      width     = 2.8
+    ]
 
-      // Comparison sub-flow
-      subgraph cluster_cmp_tools {
-        label     = "Comparison Flow"
-        style     = "filled,rounded"
-        fillcolor = "#E8DAEF"
-        color     = "#8E44AD"
-        penwidth  = 1.5
-        fontname  = "Arial Bold"
-        fontsize  = 11
+    // ── Summarize tool chain ──────────────────────────────────────────────
+    ToolSummarize [
+      label     = "Summarize Products\n(entry point)\nLoops over selected products;\ncollects per-product summaries"
+      fillcolor = "#8E44AD"
+      fontcolor = "#FFFFFF"
+      width     = 3.0
+    ]
 
-        ToolOrch [
-          label     = "compareProductsWithProgress\nOrchestrator Tool"
-          fillcolor = "#8E44AD"
-          fontcolor = "#FFFFFF"
-          width     = 3.4
-        ]
-        ToolPair [
-          label     = "compareProductPair\nHeuristic  +  LLM Fallback"
-          fillcolor = "#8E44AD"
-          fontcolor = "#FFFFFF"
-          width     = 3.2
-        ]
-        ToolHeuristic [
-          label     = "hasSharedProductType()\nKeyword Heuristic  (no LLM)"
-          fillcolor = "#D7BDE2"
-          fontcolor = "#4A235A"
-          style     = "filled,dashed,rounded"
-          penwidth  = 1.0
-          width     = 3.0
-        ]
-      }
+    SummarizeProduct [
+      label     = "Summarize Single Product\n★  DIRECT LLM CALL\nCalls callGemini() directly\n— skips Tool Router entirely"
+      fillcolor = "#C0392B"
+      fontcolor = "#FFFFFF"
+      penwidth  = 3.5
+      color     = "#7B241C"
+      width     = 3.2
+      fontsize  = 10
+    ]
 
-      // Summarize sub-flow
-      subgraph cluster_sum_tools {
-        label     = "Summarize Flow"
-        style     = "filled,rounded"
-        fillcolor = "#FADBD8"
-        color     = "#C0392B"
-        penwidth  = 1.5
-        fontname  = "Arial Bold"
-        fontsize  = 11
+    // ── LLM Gateway — both AI paths converge here ─────────────────────────
+    ToolGemini [
+      label     = "callGemini  —  ★ LLM Gateway\nAll AI requests pass through here\nReads API key from chrome.storage\nCalls Gemini REST API"
+      fillcolor = "#E67E22"
+      fontcolor = "#FFFFFF"
+      penwidth  = 4.0
+      color     = "#7D3C00"
+      width     = 3.4
+      fontsize  = 11
+      style     = "filled,rounded"
+    ]
 
-        ToolSummarize [
-          label     = "summarizeProducts\nTool wrapper"
-          fillcolor = "#8E44AD"
-          fontcolor = "#FFFFFF"
-          width     = 2.8
-        ]
-        // ★ PURE LLM PATH — calls callGemini directly
-        SummarizeProduct [
-          label     = "summarizeProduct()\n★ PURE LLM CALL\nCalls callGemini() directly\n(bypasses invokeTool dispatcher)"
-          fillcolor = "#C0392B"
-          fontcolor = "#FFFFFF"
-          penwidth  = 3.5
-          color     = "#7B241C"
-          width     = 3.2
-          fontsize  = 11
-        ]
-      }
+    // ── CSV export chain ──────────────────────────────────────────────────
+    ToolCsv [
+      label     = "Build CSV\nFormats comparison results\ninto a .csv string"
+      fillcolor = "#8E44AD"
+      fontcolor = "#FFFFFF"
+      width     = 2.6
+    ]
 
-      // ★ LLM GATEWAY — both paths converge here
-      ToolGemini [
-        label     = "callGemini\n★ LLM GATEWAY\nAll Gemini calls pass through here"
-        fillcolor = "#E67E22"
-        fontcolor = "#FFFFFF"
-        penwidth  = 4.0
-        color     = "#7D3C00"
-        width     = 3.4
-        fontsize  = 12
-        style     = "filled,rounded"
-      ]
-
-      // Utility tools
-      subgraph cluster_util_tools {
-        label     = "Utility Tools  (no LLM)"
-        style     = "filled,rounded"
-        fillcolor = "#E8DAEF"
-        color     = "#8E44AD"
-        penwidth  = 1.5
-        fontname  = "Arial Bold"
-        fontsize  = 11
-
-        ToolCsv [
-          label     = "generateCsv\nFormatter"
-          fillcolor = "#8E44AD"
-          fontcolor = "#FFFFFF"
-          width     = 2.4
-        ]
-        ToolDownload [
-          label     = "downloadCsv\nChrome Download Trigger"
-          fillcolor = "#8E44AD"
-          fontcolor = "#FFFFFF"
-          width     = 2.8
-        ]
-        ToolSummary [
-          label     = "generateComparisonSummary\nText Formatter"
-          fillcolor = "#8E44AD"
-          fontcolor = "#FFFFFF"
-          width     = 3.2
-        ]
-      }
-    }
+    ToolDownload [
+      label     = "Trigger Download\nCalls chrome.downloads API\nto save the file to disk"
+      fillcolor = "#8E44AD"
+      fontcolor = "#FFFFFF"
+      width     = 2.8
+    ]
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // EXTERNAL SERVICES
+  // LAYER 4 — EXTERNAL SERVICES  &  OUTPUTS
   // ═══════════════════════════════════════════════════════════════════════════
   subgraph cluster_external {
     label     = "External Services"
@@ -334,7 +263,7 @@ digraph EcommercePlugin {
     color     = "#C0392B"
     penwidth  = 2.5
     fontname  = "Arial Bold"
-    fontsize  = 13
+    fontsize  = 12
     fontcolor = "#7B241C"
 
     GeminiAPI [
@@ -343,147 +272,185 @@ digraph EcommercePlugin {
       fontcolor = "#FFFFFF"
       penwidth  = 2.5
       color     = "#922B21"
-      width     = 3.6
+      width     = 3.2
     ]
   }
 
-  // ── Chrome Download API + Output ──────────────────────────────────────────
-  subgraph cluster_dl_api {
-    label     = "Chrome Download API"
-    style     = "filled,rounded"
-    fillcolor = "#F2F3F4"
-    color     = "#7F8C8D"
-    penwidth  = 1.5
-    fontname  = "Arial Bold"
-    fontsize  = 12
-
-    ChromeDownloads [
-      label     = "chrome.downloads\ndownload()"
-      fillcolor = "#BDC3C7"
-      fontcolor = "#2C3E50"
-      width     = 2.6
-    ]
-  }
+  ChromeDownloads [
+    label     = "chrome.downloads\nSaves file to disk"
+    fillcolor = "#BDC3C7"
+    fontcolor = "#2C3E50"
+    width     = 2.6
+  ]
 
   CSVOutput [
-    label     = "product_comparison.csv\nDownloads Folder"
+    label     = "product_comparison.csv\nsaved to Downloads folder"
     shape     = note
     fillcolor = "#A9DFBF"
     fontcolor = "#145A32"
-    penwidth  = 1.5
     color     = "#1E8449"
-    style     = "filled"
+    penwidth  = 1.5
+    style     = filled
     width     = 2.8
   ]
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LEGEND ANCHOR  — invisible edges pull Legend to the bottom row
+  // (rank constraints on clustered nodes cause Graphviz crashes, so we use
+  //  invis edges instead)
+  // ═══════════════════════════════════════════════════════════════════════════
+  GeminiAPI -> Legend [ style=invis ]
+  CSVOutput -> Legend [ style=invis ]
 
   // ═══════════════════════════════════════════════════════════════════════════
   // EDGES
   // ═══════════════════════════════════════════════════════════════════════════
 
-  // ── A: User → Popup ───────────────────────────────────────────────────────
-  User      -> PopupHTML [xlabel="opens popup"  color="#566573"  fontcolor="#566573"]
-  PopupHTML -> PopupJS   [xlabel="DOM events"   color="#2E86C1"  fontcolor="#2E86C1"]
+  // ── A: User opens popup ──────────────────────────────────────────────────
+  User -> Popup [
+    xlabel    = "opens popup"
+    color     = "#566573"
+    fontcolor = "#566573"
+  ]
 
-  // ── B: Scan Tabs ──────────────────────────────────────────────────────────
-  PopupJS -> ChromeTabs       [xlabel="tabs.query()"       color="#7F8C8D" fontcolor="#7F8C8D" style=dashed]
-  PopupJS -> ChromeScripting  [xlabel="executeScript()"    color="#7F8C8D" fontcolor="#7F8C8D" style=dashed]
-  ChromeScripting -> WebPages [xlabel="inject extractor"   color="#CA6F1E" fontcolor="#CA6F1E" style=dashed]
-  WebPages -> PopupJS         [xlabel="{ name, price, url }"  color="#CA6F1E" fontcolor="#CA6F1E" style=dashed constraint=false]
+  // ── B: Scan flow (Popup calls Chrome APIs directly) ─────────────────────
+  //    No back-edge: executeScript injects and also receives the return value
+  Popup -> ChromeTabs [
+    xlabel    = "1. query open tabs"
+    color     = "#7F8C8D"
+    fontcolor = "#7F8C8D"
+    style     = dashed
+  ]
+  Popup -> ChromeScripting [
+    xlabel    = "2. inject extractor"
+    color     = "#7F8C8D"
+    fontcolor = "#7F8C8D"
+    style     = dashed
+  ]
+  ChromeScripting -> WebPages [
+    xlabel    = "runs script → returns product data"
+    color     = "#CA6F1E"
+    fontcolor = "#CA6F1E"
+    style     = dashed
+    dir       = both
+    arrowtail = normal
+  ]
 
-  // ── C: Content script passive detection ───────────────────────────────────
-  ContentJS -> WebPages    [xlabel="reads DOM on load"   color="#27AE60" fontcolor="#27AE60" style=dashed dir=back constraint=false]
-  ContentJS -> MsgListener [xlabel="productDetected"     color="#27AE60" fontcolor="#27AE60"]
+  // ── C: Content script passive detection ─────────────────────────────────
+  ContentJS -> WebPages [
+    xlabel    = "reads DOM on load"
+    color     = "#1E8449"
+    fontcolor = "#1E8449"
+    style     = dashed
+    dir       = both
+    arrowtail = none
+  ]
+  ContentJS -> MsgListener [
+    xlabel    = "sends productDetected"
+    color     = "#27AE60"
+    fontcolor = "#27AE60"
+  ]
 
-  // ── D: Compare flow — Port (LLM via Tool path) ────────────────────────────
-  PopupJS -> PortListener [
-    xlabel    = "runtime.connect()  compareProgress"
+  // ── D: Compare flow — persistent port ───────────────────────────────────
+  Popup -> PortListener [
+    xlabel    = "runtime.connect()  'compareProgress' port"
     color     = "#7D3C98"
     fontcolor = "#7D3C98"
-    penwidth  = 2.8
+    penwidth  = 2.5
     dir       = both
     arrowtail = vee
   ]
   PortListener -> Dispatcher [
-    xlabel    = "invokeTool -> compareProductsWithProgress"
+    xlabel    = "routes to compare tool"
     color     = "#5B2C6F"
     fontcolor = "#5B2C6F"
     penwidth  = 2.0
   ]
-
-  // ── E: Summarize flow — sendMessage (Pure LLM path) ───────────────────────
-  PopupJS -> MsgListener [
-    xlabel    = "sendMessage: summarizeProducts"
-    color     = "#C0392B"
-    fontcolor = "#C0392B"
-    penwidth  = 2.8
-    dir       = both
-    arrowtail = vee
-  ]
-  MsgListener -> ToolSummarize [
-    xlabel    = "tool_summarizeProducts()"
-    color     = "#C0392B"
-    fontcolor = "#C0392B"
+  Dispatcher -> ToolOrch [
+    xlabel    = "compareProductsWithProgress"
+    color     = "#7D3C98"
+    fontcolor = "#7D3C98"
     penwidth  = 2.0
   ]
-
-  // ── F: Dispatcher fans out to tools ───────────────────────────────────────
-  Dispatcher -> ToolOrch     [color="#7D3C98" penwidth=2.0]
-  Dispatcher -> ToolGemini   [
-    xlabel    = "LLM via Tool"
-    color     = "#E67E22"
-    fontcolor = "#E67E22"
-    penwidth  = 2.8
-  ]
-  Dispatcher -> ToolCsv      [color="#7D3C98"]
-  Dispatcher -> ToolDownload [color="#7D3C98"]
-  Dispatcher -> ToolSummary  [color="#7D3C98"]
-
-  // ── G: Comparison tool chain ──────────────────────────────────────────────
   ToolOrch -> ToolPair [
-    xlabel    = "each pair via invokeTool"
+    xlabel    = "for each tab pair"
     color     = "#9B59B6"
     fontcolor = "#9B59B6"
     style     = dashed
   ]
-  ToolPair -> ToolHeuristic [xlabel="1st: keyword match"  color="#2E86C1" fontcolor="#2E86C1"]
-
-  // ★ LLM via Tool — fallback when heuristic fails
+  ToolPair -> ToolHeuristic [
+    xlabel    = "step 1: keyword check  (no LLM)"
+    color     = "#2E86C1"
+    fontcolor = "#2E86C1"
+  ]
+  // ★ LLM via Tool Router
   ToolPair -> ToolGemini [
-    xlabel    = "2nd: LLM fallback"
+    xlabel    = "step 2: ★ LLM fallback  (via Tool Router)"
     color     = "#E67E22"
     fontcolor = "#E67E22"
-    penwidth  = 2.5
+    penwidth  = 2.8
     style     = dashed
   ]
 
-  // ── H: Summarize tool chain ───────────────────────────────────────────────
+  // ── E: CSV export after comparison ──────────────────────────────────────
+  ToolOrch -> ToolCsv [
+    xlabel    = "after all pairs"
+    color     = "#7D3C98"
+    fontcolor = "#7D3C98"
+  ]
+  ToolCsv -> ToolDownload [
+    color     = "#7D3C98"
+    fontcolor = "#7D3C98"
+  ]
+  ToolDownload -> ChromeDownloads [
+    xlabel    = "chrome.downloads.download()"
+    color     = "#7F8C8D"
+    fontcolor = "#7F8C8D"
+    style     = dashed
+  ]
+  ChromeDownloads -> CSVOutput [
+    xlabel    = "file saved"
+    color     = "#1E8449"
+    fontcolor = "#1E8449"
+  ]
+
+  // ── F: Summarize flow — sendMessage ─────────────────────────────────────
+  Popup -> MsgListener [
+    xlabel    = "sendMessage  summarizeProducts"
+    color     = "#C0392B"
+    fontcolor = "#C0392B"
+    penwidth  = 2.5
+    dir       = both
+    arrowtail = vee
+  ]
+  MsgListener -> ToolSummarize [
+    xlabel    = "dispatches to tool"
+    color     = "#C0392B"
+    fontcolor = "#C0392B"
+    penwidth  = 2.0
+  ]
   ToolSummarize -> SummarizeProduct [
-    xlabel    = "per product"
+    xlabel    = "once per product"
     color     = "#C0392B"
     fontcolor = "#C0392B"
   ]
-
-  // ★ PURE LLM CALL — direct fn, bypasses dispatcher
+  // ★ Direct LLM call — bypasses Tool Router
   SummarizeProduct -> ToolGemini [
-    xlabel    = "PURE LLM: tool_callGemini() direct"
+    xlabel    = "★ Direct call — bypasses Tool Router"
     color     = "#C0392B"
     fontcolor = "#C0392B"
     penwidth  = 3.5
     style     = bold
   ]
 
-  // ── I: LLM Gateway → Gemini REST API ─────────────────────────────────────
+  // ── G: LLM Gateway to Gemini API (bidirectional — sends request, gets reply)
   ToolGemini -> GeminiAPI [
-    xlabel    = "POST /v1/models/gemini-2.5-flash:generateContent"
+    xlabel    = "POST  /v1/models/gemini-2.5-flash:generateContent"
     color     = "#922B21"
     fontcolor = "#922B21"
-    penwidth  = 3.5
+    penwidth  = 3.0
     style     = bold
     dir       = both
     arrowtail = vee
   ]
-
-  // ── J: CSV download ───────────────────────────────────────────────────────
-  ToolDownload -> ChromeDownloads [xlabel="chrome.downloads.download()"  color="#7F8C8D" fontcolor="#7F8C8D" style=dashed]
-  ChromeDownloads -> CSVOutput    [xlabel="saves file"                    color="#1E8449" fontcolor="#1E8449"]
 }
