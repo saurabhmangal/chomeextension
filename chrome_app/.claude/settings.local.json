@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python split_video.py)",
+      "Bash(where ffmpeg *)",
+      "Bash(where ffmpeg.exe)",
+      "Bash(pip show *)",
+      "Bash(python -c \"import moviepy; print\\('moviepy ok'\\)\")",
+      "Bash(python -c \"import imageio_ffmpeg; print\\(imageio_ffmpeg.get_ffmpeg_exe\\(\\)\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(python build_video.py)"
+    ]
+  }
+}
