@@ -1,0 +1,423 @@
+digraph EcommercePlugin {
+
+  // ── Graph globals ──────────────────────────────────────────────────────────
+  graph [
+    fontname  = "Arial, Helvetica, sans-serif"
+    fontsize  = 13
+    bgcolor   = "#F8FAFC"
+    pad       = 1.2
+    splines   = ortho
+    rankdir   = TB
+    nodesep   = 1.0
+    ranksep   = 1.4
+    compound  = true
+    newrank   = true
+  ]
+  node [
+    fontname  = "Arial, Helvetica, sans-serif"
+    fontsize  = 11
+    style     = "filled,rounded"
+    shape     = box
+    penwidth  = 1.5
+    margin    = "0.28,0.16"
+  ]
+  edge [
+    fontname  = "Arial, Helvetica, sans-serif"
+    fontsize  = 9
+    penwidth  = 1.5
+    arrowsize = 0.75
+    arrowhead = vee
+  ]
+
+  // ── Legend ──────────────────────────────────────────────────────────────────
+  subgraph cluster_legend {
+    label     = "Legend"
+    style     = "filled,rounded"
+    fillcolor = "#FFFFFF"
+    color     = "#BDC3C7"
+    penwidth  = 1.5
+    fontsize  = 11
+    fontname  = "Arial Bold, Helvetica Bold, sans-serif"
+
+    L1 [label="Chrome message / call"                           fillcolor="#E5E8E8" fontcolor="#2C3E50" width=3.0]
+    L2 [label="Long-lived Port connection"                      fillcolor="#EAD8F5" fontcolor="#4A235A" penwidth=2.5 color="#7D3C98" width=3.0]
+    L3 [label="LLM via Tool  (invokeTool dispatcher)"           fillcolor="#FAD7A0" fontcolor="#784212" penwidth=2.5 color="#E67E22" width=3.0]
+    L4 [label="Pure LLM Call  (direct fn, bypasses dispatcher)" fillcolor="#FADBD8" fontcolor="#7B241C" penwidth=3   color="#C0392B" width=3.0]
+    L5 [label="No-LLM / Utility"                                fillcolor="#D5F5E3" fontcolor="#145A32" penwidth=1   color="#1E8449" width=3.0]
+    L1 -> L2 -> L3 -> L4 -> L5 [style=invis]
+  }
+
+  // ── Invisible rank anchors ──────────────────────────────────────────────────
+  _r0 [style=invis shape=point width=0]
+  _r1 [style=invis shape=point width=0]
+  _r2 [style=invis shape=point width=0]
+  _r3 [style=invis shape=point width=0]
+  _r4 [style=invis shape=point width=0]
+  _r5 [style=invis shape=point width=0]
+  _r0 -> _r1 -> _r2 -> _r3 -> _r4 -> _r5 [style=invis]
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LAYER 0 — USER
+  // ═══════════════════════════════════════════════════════════════════════════
+  { rank=same; _r0; User }
+
+  User [
+    label     = "User"
+    shape     = circle
+    fillcolor = "#2C3E50"
+    fontcolor = "#FFFFFF"
+    fontsize  = 13
+    width     = 1.0
+    height    = 1.0
+    penwidth  = 0
+  ]
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LAYER 1 — POPUP  +  CONTENT SCRIPT
+  // ═══════════════════════════════════════════════════════════════════════════
+  { rank=same; _r1; PopupHTML; PopupJS; ContentJS }
+
+  subgraph cluster_popup {
+    label     = "Popup Layer"
+    style     = "filled,rounded"
+    fillcolor = "#EBF5FB"
+    color     = "#2980B9"
+    penwidth  = 2
+    fontname  = "Arial Bold, Helvetica Bold, sans-serif"
+    fontsize  = 12
+    fontcolor = "#1A5276"
+
+    PopupHTML [
+      label     = "popup.html\nUI Shell"
+      fillcolor = "#AED6F1"
+      fontcolor = "#1A5276"
+    ]
+    PopupJS [
+      label     = "popup.js\nUI Controller  &  Orchestrator\n[Compare button]  [Summarize button]"
+      fillcolor = "#2E86C1"
+      fontcolor = "#FFFFFF"
+    ]
+  }
+
+  subgraph cluster_content {
+    label     = "Content Layer"
+    style     = "filled,rounded"
+    fillcolor = "#E9F7EF"
+    color     = "#1E8449"
+    penwidth  = 2
+    fontname  = "Arial Bold, Helvetica Bold, sans-serif"
+    fontsize  = 12
+    fontcolor = "#145A32"
+
+    ContentJS [
+      label     = "content.js\nPassive Product Detector\n(auto-injected on all pages)"
+      fillcolor = "#27AE60"
+      fontcolor = "#FFFFFF"
+    ]
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LAYER 2 — WEB PAGES  (DOM)
+  // ═══════════════════════════════════════════════════════════════════════════
+  { rank=same; _r2; WebPages }
+
+  WebPages [
+    label     = "Web Pages  /  DOM\n(Amazon · eBay · any product site)"
+    shape     = cylinder
+    fillcolor = "#FAE5D3"
+    fontcolor = "#784212"
+    penwidth  = 1.5
+    color     = "#CA6F1E"
+    style     = "filled"
+  ]
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LAYER 3 — BACKGROUND SERVICE WORKER
+  // ═══════════════════════════════════════════════════════════════════════════
+  { rank=same; _r3; PortListener; MsgListener }
+
+  subgraph cluster_background {
+    label     = "Background Service Worker  (background.js)"
+    style     = "filled,rounded"
+    fillcolor = "#F4ECF7"
+    color     = "#6C3483"
+    penwidth  = 2.5
+    fontname  = "Arial Bold, Helvetica Bold, sans-serif"
+    fontsize  = 12
+    fontcolor = "#4A235A"
+
+    subgraph cluster_listeners {
+      label     = "Chrome Runtime Listeners"
+      style     = "filled,rounded"
+      fillcolor = "#EAD8F5"
+      color     = "#9B59B6"
+      penwidth  = 1.5
+      fontsize  = 11
+
+      PortListener [
+        label     = "onConnect Listener\nPort: 'compareProgress'"
+        fillcolor = "#D7BDE2"
+        fontcolor = "#4A235A"
+      ]
+      MsgListener [
+        label     = "onMessage Listener\nsummarizeProducts  |  productDetected  |  getDetectedProducts"
+        fillcolor = "#D7BDE2"
+        fontcolor = "#4A235A"
+      ]
+    }
+
+    Dispatcher [
+      label     = "invokeTool()  Dispatcher"
+      shape     = diamond
+      fillcolor = "#6C3483"
+      fontcolor = "#FFFFFF"
+      width     = 2.6
+      height    = 0.95
+      penwidth  = 2
+    ]
+
+    // ── LAYER 4 — TOOL REGISTRY ───────────────────────────────────────────
+    { rank=same; _r4; ToolOrch; ToolPair; ToolGemini; ToolCsv; ToolDownload; ToolSummary; ToolSummarize }
+
+    subgraph cluster_tools {
+      label     = "Tool Registry"
+      style     = "filled,rounded"
+      fillcolor = "#EAD8F5"
+      color     = "#5B2C6F"
+      penwidth  = 1.5
+      fontname  = "Arial Bold, Helvetica Bold, sans-serif"
+      fontsize  = 11
+      fontcolor = "#4A235A"
+
+      ToolOrch [
+        label     = "compareProductsWithProgress\nOrchestrator Tool"
+        fillcolor = "#8E44AD"
+        fontcolor = "#FFFFFF"
+      ]
+      ToolPair [
+        label     = "compareProductPair\nHeuristic  +  LLM Fallback"
+        fillcolor = "#8E44AD"
+        fontcolor = "#FFFFFF"
+      ]
+      ToolHeuristic [
+        label     = "hasSharedProductType()\nKeyword Match  (no LLM)"
+        fillcolor = "#D7BDE2"
+        fontcolor = "#4A235A"
+        style     = "filled,dashed,rounded"
+        penwidth  = 1.0
+      ]
+      ToolGemini [
+        label     = "callGemini\nLLM Tool\n\342\230\205 Gemini REST endpoint"
+        fillcolor = "#E67E22"
+        fontcolor = "#FFFFFF"
+        penwidth  = 3.0
+        color     = "#A04000"
+      ]
+      ToolCsv [
+        label     = "generateCsv\nFormatter Tool"
+        fillcolor = "#8E44AD"
+        fontcolor = "#FFFFFF"
+      ]
+      ToolDownload [
+        label     = "downloadCsv\nChrome Download Tool"
+        fillcolor = "#8E44AD"
+        fontcolor = "#FFFFFF"
+      ]
+      ToolSummary [
+        label     = "generateComparisonSummary\nFormatter Tool"
+        fillcolor = "#8E44AD"
+        fontcolor = "#FFFFFF"
+      ]
+      ToolSummarize [
+        label     = "summarizeProducts\nLLM Tool (wraps summarizeProduct)"
+        fillcolor = "#8E44AD"
+        fontcolor = "#FFFFFF"
+      ]
+
+      SummarizeProduct [
+        label     = "summarizeProduct()\nPure LLM Helper\n\342\230\205 Calls callGemini DIRECTLY\n(bypasses invokeTool dispatcher)"
+        fillcolor = "#C0392B"
+        fontcolor = "#FFFFFF"
+        penwidth  = 3.0
+        color     = "#7B241C"
+      ]
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LAYER 5 — EXTERNAL SERVICES  +  BROWSER APIS  +  OUTPUT
+  // ═══════════════════════════════════════════════════════════════════════════
+  { rank=same; _r5; GeminiAPI; ChromeTabs; ChromeScripting; ChromeDownloads; CSVOutput }
+
+  subgraph cluster_external {
+    label     = "External Services"
+    style     = "filled,rounded"
+    fillcolor = "#FDEDEC"
+    color     = "#C0392B"
+    penwidth  = 2
+    fontname  = "Arial Bold, Helvetica Bold, sans-serif"
+    fontsize  = 12
+    fontcolor = "#7B241C"
+
+    GeminiAPI [
+      label     = "Google Gemini API\ngemini-2.5-flash\ngenerativelanguage.googleapis.com"
+      fillcolor = "#E74C3C"
+      fontcolor = "#FFFFFF"
+      penwidth  = 2.5
+      color     = "#922B21"
+    ]
+  }
+
+  subgraph cluster_browser {
+    label     = "Chrome Browser APIs"
+    style     = "filled,rounded"
+    fillcolor = "#F2F3F4"
+    color     = "#7F8C8D"
+    penwidth  = 2
+    fontname  = "Arial Bold, Helvetica Bold, sans-serif"
+    fontsize  = 12
+    fontcolor = "#2C3E50"
+
+    ChromeTabs [
+      label     = "chrome.tabs\nQuery open tabs"
+      fillcolor = "#BDC3C7"
+      fontcolor = "#2C3E50"
+    ]
+    ChromeScripting [
+      label     = "chrome.scripting\nexecuteScript()"
+      fillcolor = "#BDC3C7"
+      fontcolor = "#2C3E50"
+    ]
+    ChromeDownloads [
+      label     = "chrome.downloads\nFile download trigger"
+      fillcolor = "#BDC3C7"
+      fontcolor = "#2C3E50"
+    ]
+  }
+
+  CSVOutput [
+    label     = "product_comparison.csv\nUser Downloads Folder"
+    shape     = note
+    fillcolor = "#A9DFBF"
+    fontcolor = "#145A32"
+    penwidth  = 1.5
+    color     = "#1E8449"
+    style     = "filled"
+  ]
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // EDGES  (xlabel = external label required for splines=ortho)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Flow 1 — User opens extension
+  User      -> PopupHTML  [xlabel="opens popup"   color="#566573" fontcolor="#566573"]
+  PopupHTML -> PopupJS    [xlabel="click events"  color="#2E86C1" fontcolor="#2E86C1"]
+
+  // Flow 2 — Scan Tabs  (executeScript)
+  PopupJS -> ChromeTabs       [xlabel="tabs.query()"           color="#7F8C8D" fontcolor="#7F8C8D" style=dashed]
+  PopupJS -> ChromeScripting  [xlabel="executeScript()"         color="#7F8C8D" fontcolor="#7F8C8D" style=dashed]
+  ChromeScripting -> WebPages [xlabel="injects extractor fn"    color="#CA6F1E" fontcolor="#CA6F1E" style=dashed]
+  WebPages -> PopupJS         [xlabel="{ name, price, url }"    color="#CA6F1E" fontcolor="#CA6F1E" style=dashed]
+
+  // Flow 3 — Content script passive detection
+  ContentJS -> WebPages    [xlabel="observes DOM on load"          color="#27AE60" fontcolor="#27AE60" style=dashed dir=back]
+  ContentJS -> MsgListener [xlabel="productDetected (sendMessage)" color="#27AE60" fontcolor="#27AE60"]
+
+  // Flow 4a — Compare via Port  (LLM via Tool path)
+  PopupJS -> PortListener [
+    xlabel    = "Compare: runtime.connect()  Port: compareProgress"
+    color     = "#7D3C98"
+    fontcolor = "#7D3C98"
+    penwidth  = 2.5
+  ]
+  PortListener -> PopupJS [
+    xlabel    = "port: { progress / result / error }"
+    color     = "#7D3C98"
+    fontcolor = "#7D3C98"
+    style     = dashed
+  ]
+  PortListener -> Dispatcher [
+    xlabel    = "action: invokeTool  ->  compareProductsWithProgress"
+    color     = "#5B2C6F"
+    fontcolor = "#5B2C6F"
+  ]
+
+  // Flow 4b — Summarize via sendMessage  (pure LLM path)
+  PopupJS -> MsgListener [
+    xlabel    = "Summarize: sendMessage (summarizeProducts)"
+    color     = "#C0392B"
+    fontcolor = "#C0392B"
+    penwidth  = 2.5
+  ]
+  MsgListener -> PopupJS [
+    xlabel    = "sendResponse { summaries }"
+    color     = "#C0392B"
+    fontcolor = "#C0392B"
+    style     = dashed
+  ]
+
+  // Flow 5 — Dispatcher fans out to Tools
+  Dispatcher -> ToolOrch     [color="#7D3C98"]
+  Dispatcher -> ToolPair     [color="#7D3C98"]
+  Dispatcher -> ToolGemini   [xlabel="LLM via Tool" color="#E67E22" fontcolor="#E67E22" penwidth=2.5]
+  Dispatcher -> ToolCsv      [color="#7D3C98"]
+  Dispatcher -> ToolDownload [color="#7D3C98"]
+  Dispatcher -> ToolSummary  [color="#7D3C98"]
+
+  // Flow 6 — Orchestrator loops back
+  ToolOrch -> Dispatcher [
+    xlabel    = "invokeTool(compareProductPair)  x N pairs"
+    style     = dashed
+    color     = "#9B59B6"
+    fontcolor = "#9B59B6"
+  ]
+
+  // Flow 7 — compareProductPair decision tree
+  ToolPair -> ToolHeuristic [xlabel="1st: keyword match"                   color="#2E86C1" fontcolor="#2E86C1"]
+  ToolPair -> Dispatcher    [xlabel="2nd: invokeTool(callGemini) if fails"  style=dashed color="#E67E22" fontcolor="#E67E22"]
+
+  // Flow 8 — onMessage routes to summarizeProducts tool
+  MsgListener -> ToolSummarize [
+    xlabel    = "tool_summarizeProducts()"
+    color     = "#C0392B"
+    fontcolor = "#C0392B"
+  ]
+
+  // Flow 9 — summarizeProducts calls summarizeProduct
+  ToolSummarize -> SummarizeProduct [
+    xlabel    = "per product"
+    color     = "#C0392B"
+    fontcolor = "#C0392B"
+  ]
+
+  // Flow 10 — PURE LLM CALL: summarizeProduct calls callGemini directly
+  SummarizeProduct -> ToolGemini [
+    xlabel    = "PURE LLM CALL\ntool_callGemini() direct\n(no invokeTool dispatcher)"
+    color     = "#C0392B"
+    fontcolor = "#C0392B"
+    penwidth  = 3.0
+    style     = bold
+  ]
+
+  // Flow 11 — LLM VIA TOOL: Dispatcher calls callGemini through tool system
+  // (represented by Dispatcher -> ToolGemini edge above, Flow 5)
+
+  // Flow 12 — callGemini hits Gemini REST API
+  ToolGemini -> GeminiAPI [
+    xlabel    = "POST /v1/models/gemini-2.5-flash:generateContent"
+    color     = "#A04000"
+    fontcolor = "#A04000"
+    penwidth  = 3.0
+    style     = bold
+  ]
+  GeminiAPI -> ToolGemini [
+    xlabel    = "text response"
+    color     = "#A04000"
+    fontcolor = "#A04000"
+    style     = dashed
+  ]
+
+  // Flow 13 — Download CSV
+  ToolDownload -> ChromeDownloads [xlabel="chrome.downloads.download()" color="#7F8C8D" fontcolor="#7F8C8D" style=dashed]
+  ChromeDownloads -> CSVOutput    [xlabel="saves file"                   color="#1E8449" fontcolor="#1E8449"]
+}
