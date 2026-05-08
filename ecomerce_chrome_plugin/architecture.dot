@@ -3,23 +3,25 @@ digraph EcommercePlugin {
   // ── Global layout ───────────────────────────────────────────────────────────
   graph [
     fontname    = "Arial"
-    fontsize    = 12
+    fontsize    = 11
     bgcolor     = "#F8FAFC"
-    pad         = 1.2
+    pad         = 0.6
     splines     = ortho
-    rankdir     = TB
-    nodesep     = 0.65
-    ranksep     = 1.1
+    rankdir     = LR
+    nodesep     = 0.45
+    ranksep     = 0.9
+    size        = "20,11.25!"
+    ratio       = fill
     forcelabels = true
   ]
   node [
     fontname = "Arial"
-    fontsize = 11
+    fontsize = 10
     style    = "filled,rounded"
     shape    = box
     penwidth = 1.5
-    margin   = "0.25,0.15"
-    width    = 2.6
+    margin   = "0.2,0.12"
+    width    = 2.4
   ]
   edge [
     fontname  = "Arial"
